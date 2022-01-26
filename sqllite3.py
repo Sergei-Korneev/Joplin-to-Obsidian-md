@@ -1,6 +1,7 @@
 import sqlite3, re, sys, os, shutil
 
 
+
 if (len(sys.argv)==1) or  not os.path.exists(sys.argv[1]):    
         __help()
         print("\nThe path  does not exist.")
