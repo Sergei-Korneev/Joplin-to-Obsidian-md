@@ -53,4 +53,4 @@ for row in cur.execute('SELECT title,body FROM notes'):
     note_file=open(expath + row[0] + ".md",'w')           
     note_file.write(filetmp) 
     note_file.close()
-
+con.close()
