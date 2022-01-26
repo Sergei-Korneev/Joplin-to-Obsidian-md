@@ -1,8 +1,17 @@
-import sqlite3, re, os, shutil
+import sqlite3, re, sys, os, shutil
 
-path='./JoplinProfileExport'
+
+if (len(sys.argv)==1) or  not os.path.exists(sys.argv[1]):    
+        __help()
+        print("\nThe path  does not exist.")
+        sys.exit(1)
+
+
+path=sys.argv[1]
 expath=path+'/Obsidian/'
 respath=expath+'/resources/'
+
+
 
 def __find(filename, search_path):
    result = []
@@ -12,8 +21,6 @@ def __find(filename, search_path):
            if  filename in f:
              result.append(os.path.join(root, f))
    return result
-
-
 
 
 try:
