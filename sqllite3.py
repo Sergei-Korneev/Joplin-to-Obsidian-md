@@ -29,14 +29,14 @@ try:
     cur = con.cursor()
 except OSError as error:
     print(error)
-
+    sys.exit(1)
 
 try: 
     os.mkdir(expath)
     os.mkdir(respath)
 except OSError as error: 
     print(error)  
-
+    sys.exit(1)
 
 for row in cur.execute('SELECT title,body FROM notes'):
     
