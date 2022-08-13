@@ -11,8 +11,9 @@ def main():
             cmdhelp()
 
     path=sys.argv[1]
-    expath=path+'/Obsidian/'
-    respath=expath+'/resources/'
+    pathres=os.path.join(path,'resources')
+    expath=os.path.join(path,'Obsidian')
+    respath=os.path.join(expath,'resources')
 
 
 
@@ -27,7 +28,7 @@ def main():
 
 
     try:
-        con = sqlite3.connect(path+'/joplin.sqlite')
+        con = sqlite3.connect(os.path.join(path,'joplin.sqlite'))
         cur = con.cursor()
     except OSError as error:
         print(error)
@@ -47,12 +48,11 @@ def main():
         for line in re.findall("!\[.*\]\(.*\)", filetmp):
           
           t=line.split('(')[1::2][0].split(')')[0].replace(":/","")
-          shutil.copyfile(__find(t, path+'/resources')[0],respath+__find(t, path+'/resources')[0].split("/")[-1])
-          t='![['+__find(t, path+'/resources')[0].split("/")[-1]+']]'
-          #print(t)
+          shutil.copyfile(__find(t, pathres)[0],os.path.join(respath,os.path.basename(__find(t, pathres)[0])))
+          t='![['+__find(t, pathres)[0].split("/")[-1]+']]'
           filetmp=re.sub(line.replace("!","\!").replace("[","\[").replace("]","\]").replace(")","\)").replace("(","\("),t,filetmp)
       
-        note_file=open(expath + row[0] + ".md",'w')           
+        note_file=open(os.path.join(expath , row[0] + ".md"),'w')           
         note_file.write(filetmp) 
         note_file.close()
     con.close()
