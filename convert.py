@@ -9,9 +9,19 @@ def  chkpath(p):
        print("\nThe path " + str(p) + " does not exist.")
        cmdhelp()
 
+def makepath(p):
+    try: 
+        os.mkdir(p)
+    except OSError as error:
+        if error.errno != 17:
+          print(error)  
+          sys.exit(1)
+
+
+
 def main():
 
-    if (len(sys.argv)==1):            
+    if (len(sys.argv)==1) or (len(sys.argv)>2):
             cmdhelp()
     chkpath(sys.argv[1]) 
 
@@ -21,8 +31,8 @@ def main():
     expath=os.path.join(path,'Obsidian')
     respath=os.path.join(expath,'resources')
     
-    chkpath(pathres)
     chkpath(dbpath)
+    chkpath(pathres)
 
     def findfiles(filename, search_path):
        result = []
@@ -41,17 +51,17 @@ def main():
         print(error)
         sys.exit(1)
 
-    try: 
-        os.mkdir(expath)
-        os.mkdir(respath)
-    except OSError as error:
-        if error.errno != 17:
-          print(error)  
-          sys.exit(1)
+    makepath(expath)
+    makepath(respath)
 
-    for row in cur.execute('SELECT title,body FROM notes'):
-        
-        print("Exporting: "+ row[0])
+    folders = {}
+    for row in cur.execute('SELECT id,title FROM folders'):
+        folders[row[0]] = row[1]
+        makepath(os.path.join(expath,row[1]))
+
+    print("Exporting:\n\nNotebook\tNote\n")
+    for row in cur.execute('SELECT title,body,parent_id FROM notes'):
+        print(folders[row[2]] + "\t" +  row[0])
         filetmp=row[1]
         for line in re.findall("!\[.*\]\(.*\)", filetmp):
           
@@ -60,7 +70,7 @@ def main():
           t='![['+os.path.basename(findfiles(t, pathres)[0])+']]'
           filetmp=re.sub(line.replace("!","\!").replace("[","\[").replace("]","\]").replace(")","\)").replace("(","\("),t,filetmp)
       
-        note_file=codecs.open(os.path.join(expath , row[0] + ".md"),"w","utf-8")           
+        note_file=codecs.open(os.path.join(expath, folders[row[2]], row[0] + ".md"), "w", "utf-8")           
         note_file.write(filetmp) 
         note_file.close()
     con.close()
