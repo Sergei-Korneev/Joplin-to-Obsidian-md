@@ -59,7 +59,7 @@ def main():
         folders[row[0]] = row[1]
         makepath(os.path.join(expath,row[1]))
 
-    print("Exporting:\n\nNotebook\tNote\n")
+    print("Exporting to :" + expath + "\n\nNotebook\tNote\n")
     for row in cur.execute('SELECT title,body,parent_id FROM notes'):
         print(folders[row[2]] + "\t" +  row[0])
         filetmp=row[1]
