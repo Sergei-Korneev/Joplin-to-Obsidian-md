@@ -4,10 +4,10 @@ Python script to convert Joplin mobile exported profile to Obsidian plain text M
 
 Instructions:
 
-- Export your Joplin profile () to SDCARD and copy it your local disk
+- Export your Joplin profile (Configuration->Export Profile) to SDCARD and copy it your local disk
 
 - Install Python3 and run in your console python3 convert.py [path to the profile folder e.g. d:/joplin or /media/sdcard/joplin] 
-The script will create subfolder called Obsidian and write all notebooks and notes there (the folder should be writable)
+The script will create a subfolder called Obsidian and write all notebooks and notes there (the folder should be writable)
 
 - That is it.
 
