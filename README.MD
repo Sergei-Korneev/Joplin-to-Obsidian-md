@@ -1,3 +1,18 @@
+# Конвертер мобильного профиля Joplin в хранилище Obsidian
+
+Скрипт на Python для конвертации мобильного профиля Joplin в заметки Obsidian.
+
+Инструкции:
+
+- Экспортируйте профиль Joplin (Конфигурация->Экспортировать Профиль) на карту устройства и скопириуйте его на локальный диск.
+
+- Установите Python3 и запустите в консоли комманду python3 convert.py [путь к папке профиля т.е. d:\joplin или /media/sdcard/joplin] 
+Скрипт создаст подпапку с именем Obsidian и запишет туда все ноутбуки и заметки (папка должа иметь права на запись)
+
+- Все.
+
+* * *
+
 # Joplin Mobile To Obsidian Markdown
 
 Python script to convert Joplin mobile exported profile to Obsidian plain text MD files.
@@ -11,19 +26,5 @@ The script will create a subfolder called Obsidian and write all notebooks and n
 
 - That is it.
 
-* * *
-
-# Конвертер мобильного профиля Joplin в корзину Obsidian
-
-Скрипт на Python для конвертации мобильного профиля Joplin в заметки Obsidian.
-
-Инструкции:
-
-- Экспортируйте профиль Joplin (Конфигурация->Экспортировать Профиль) на карту устройства и скопириуйте его на локальный диск.
-
-- Установите Python3 и запустите в консоли комманду python3 convert.py [путь к папке профиля т.е. d:\joplin или /media/sdcard/joplin] 
-Скрипт создаст подпапку с именем Obsidian и запишет туда все ноутбуки и заметки (папка должа иметь права на запись)
-
-- Все.
 
 
