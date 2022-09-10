@@ -13,7 +13,7 @@
 
 * * *
 
-# Joplin Mobile To Obsidian Markdown
+# Joplin Mobile To Obsidian Vault
 
 Python script to convert Joplin mobile exported profile to Obsidian plain text MD files.
 
