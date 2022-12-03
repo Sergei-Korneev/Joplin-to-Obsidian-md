@@ -17,6 +17,24 @@ def makepath(p):
           print(error)  
           sys.exit(1)
 
+# Replace Windows/Linux filesystem reserved symbols
+def repl_forb(string):
+  forbidden_char={'<': '(less than)',
+                 '>': '(greater than)',
+                 ':': '(colon)',
+                 '"': '(double quote)',
+                 '/': '(forward slash)',
+                 '\\': '(backslash)',
+                 '|': '(vertical bar or pipe)',
+                 '?': '(question mark)',
+                 '*': '(asterisk)'
+                 }
+
+
+  for   rep in forbidden_char:
+                 string=string.replace(rep,forbidden_char[rep])
+  return string
+
 
 
 def main():
@@ -56,8 +74,8 @@ def main():
 
     folders = {}
     for row in cur.execute('SELECT id,title FROM folders'):
-        folders[row[0]] = row[1]
-        makepath(os.path.join(expath,row[1]))
+        folders[row[0]] = repl_forb(row[1])
+        makepath(os.path.join(expath,folders[row[0]]))
 
     print("Exporting to :" + expath + "\n\nNotebook\tNote\n")
     for row in cur.execute('SELECT title,body,parent_id FROM notes'):
@@ -70,7 +88,7 @@ def main():
           t='![['+os.path.basename(findfiles(t, pathres)[0])+']]'
           filetmp=re.sub(line.replace("!","\!").replace("[","\[").replace("]","\]").replace(")","\)").replace("(","\("),t,filetmp)
       
-        note_file=codecs.open(os.path.join(expath, folders[row[2]], row[0] + ".md"), "w", "utf-8")           
+        note_file=codecs.open(os.path.join(expath, folders[row[2]], repl_forb(row[0]) + ".md"), "w", "utf-8")           
         note_file.write(filetmp) 
         note_file.close()
     con.close()
