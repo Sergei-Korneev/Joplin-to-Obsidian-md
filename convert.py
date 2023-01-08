@@ -96,8 +96,8 @@ def main():
           if t[0:4]!="http":
               #print("Downloading an attachement:\r\n"+t+"\r\n")
              # t=Download(t,True,pathres+'/')
-              t=os.path.basename(findfiles(t, pathres)[0])
               try:
+                  t=os.path.basename(findfiles(t, pathres)[0])
                   shutil.copyfile(os.path.join(pathres,t),os.path.join(respath,t))
                   t='![['+t+']]'
                   filetmp=re.sub(line.replace("!","\!").replace("[","\[").replace("]","\]").replace(")","\)").replace("(","\("),t,filetmp)
