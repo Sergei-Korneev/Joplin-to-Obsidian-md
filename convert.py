@@ -83,8 +83,13 @@ def main():
 
     print("Exporting to :" + expath + "\n\nNotebook\tNote\n")
     meta=""
+    fol=""
     for row in cur.execute('SELECT title,body,parent_id,id,source_url,created_time,source FROM notes'):
-        print(folders[row[2]] + "\t" +  row[0])
+        if row[2] in folders:
+                fol=folders[row[2]]
+        else:
+            fol=""
+        print(fol + "\t" +  row[0])
         filetmp=row[1]
         for line in re.findall("!\[.*\]\(.*\)", filetmp):
           t=re.sub('^\:\/', '', line.split("(")[1::2][0].split(")")[0])
@@ -101,7 +106,7 @@ def main():
 
           date_t= datetime.datetime.fromtimestamp(row[5] // 1000).strftime("%m/%d/%Y, %H:%M:%S")
           meta="\r\n***\r\nNote id: "+row[3]+"\r\nUrl: "+row[4]+"\r\nCreated time (db, local): "+date_t+"\r\nSource app: "+row[6]
-        note_file=codecs.open(os.path.join(expath, folders[row[2]], repl_forb(row[0]) + ".md"), "w", "utf-8")   
+        note_file=codecs.open(os.path.join(expath, fol, repl_forb(row[0]) + ".md"), "w", "utf-8")   
 
         note_file.write(filetmp)
         note_file.write(meta)
