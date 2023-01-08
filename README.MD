@@ -27,4 +27,10 @@ The script will create a subfolder called Obsidian and write all notebooks and n
 - That is it.
 
 
+## Donations
+
+Share your  wishes and ideas about this software or buy me a coffee (or hot chocolate)
+
+[![Buy me a coffee](https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/sergeikorneev)
+
 
