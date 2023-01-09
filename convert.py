@@ -98,12 +98,17 @@ def main():
               #print("Downloading an attachement:\r\n"+t+"\r\n")
              # t=Download(t,True,pathres+'/')
               try:
-                  obs_res=os.path.basename(findfiles(jop_res, pathres)[0])
-                  #print("file: " +obs_res)
-                  shutil.copyfile(os.path.join(pathres,obs_res),os.path.join(respath,obs_res))
-                  tag='![['+obs_res+']]'
-                  filetmp=re.sub("\("+jop_res+"\)", "("+obs_res+")", filetmp) 
-                  filetmp=re.sub("\("+jop_res+" ", "("+obs_res+" ", filetmp) 
+                  f_list=findfiles(jop_res, pathres) 
+                  if (len(f_list) > 0):
+                      obs_res=os.path.basename(f_list[0])
+                    #  print("file: " +obs_res)
+                      shutil.copyfile(os.path.join(pathres,obs_res),os.path.join(respath,obs_res))
+                      filetmp=re.sub("\("+jop_res+"\)", "("+obs_res+")", filetmp) 
+                      filetmp=re.sub("\("+jop_res+" ", "("+obs_res+" ", filetmp) 
+                  else:
+                      print("Warning: Attachement "+jop_res+" in note \'"+row[0]+"\' not found in "+pathres)
+
+
               except OSError as error:
                 print(error)
 
