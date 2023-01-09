@@ -1,6 +1,6 @@
 import sqlite3, sys, os, shutil, re, codecs
 import datetime
-
+import markdownify
 
 def cmdhelp():
     print("\nUse python3 convert.py [path to exported joplin profile]\n")
@@ -90,17 +90,19 @@ def main():
         else:
             fol=""
         print(fol + "\t" +  row[0])
-        filetmp=row[1]
-        for line in re.findall("!\[.*\]\(.*\)", filetmp):
-          t=re.sub('^\:\/', '', line.split("(")[1::2][0].split(")")[0])
-          if t[0:4]!="http":
+        filetmp=markdownify.markdownify(row[1], heading_style="ATX").replace("](:/","](").replace("\\*","*").replace("\\_","_")
+        for line in re.findall("\!\[.*\]\(.*\)", filetmp):
+          jop_res=re.sub('^\:\/', '', line.split("(")[1::2][0].split(")")[0]).split(" ")[0]
+          #print("att: "+jop_res)
+          if jop_res[0:4]!="http":
               #print("Downloading an attachement:\r\n"+t+"\r\n")
              # t=Download(t,True,pathres+'/')
               try:
-                  t=os.path.basename(findfiles(t, pathres)[0])
-                  shutil.copyfile(os.path.join(pathres,t),os.path.join(respath,t))
-                  t='![['+t+']]'
-                  filetmp=re.sub(line.replace("!","\!").replace("[","\[").replace("]","\]").replace(")","\)").replace("(","\("),t,filetmp)
+                  obs_res=os.path.basename(findfiles(jop_res, pathres)[0])
+                  #print("file: " +obs_res)
+                  shutil.copyfile(os.path.join(pathres,obs_res),os.path.join(respath,obs_res))
+                  tag='![['+obs_res+']]'
+                  filetmp=re.sub("\("+jop_res+"\)", "("+obs_res+")", filetmp) 
               except OSError as error:
                 print(error)
 
