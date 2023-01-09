@@ -102,7 +102,8 @@ def main():
                   #print("file: " +obs_res)
                   shutil.copyfile(os.path.join(pathres,obs_res),os.path.join(respath,obs_res))
                   tag='![['+obs_res+']]'
-                  filetmp=re.sub("\("+jop_res, "("+obs_res, filetmp) 
+                  filetmp=re.sub("\("+jop_res+"\)", "("+obs_res+")", filetmp) 
+                  filetmp=re.sub("\("+jop_res+" ", "("+obs_res+" ", filetmp) 
               except OSError as error:
                 print(error)
 
