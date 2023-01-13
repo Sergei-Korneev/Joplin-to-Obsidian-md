@@ -137,7 +137,8 @@ def main():
         ind = 0
         n_path = os.path.join(fol, repl_forb(row[0]) + ".md")
         while (os.path.exists(n_path)):
-            n_path = os.path.join(fol, repl_forb(row[0]) + "\("+str(ind+1)+"\)" + ".md")
+            ind=ind+1
+            n_path = os.path.join(fol, repl_forb(row[0]) + "("+str(ind)+")" + ".md")
 
         note_file=codecs.open(n_path, "w", "utf-8")   
 
