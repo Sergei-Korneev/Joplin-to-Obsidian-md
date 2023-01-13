@@ -2,6 +2,8 @@ import sqlite3, sys, os, shutil, re, codecs
 import datetime
 import markdownify
 import functools
+import random
+
 
 def cmdhelp():
     print("\nUse python3 convert.py [path to exported joplin profile]\n")
@@ -131,7 +133,13 @@ def main():
 
           date_t= datetime.datetime.fromtimestamp(row[5] // 1000).strftime("%m/%d/%Y, %H:%M:%S")
           meta="\r\n***\r\nNote id: "+row[3]+"\r\nUrl: "+row[4]+"\r\nCreated time (db, local): "+date_t+"\r\nSource app: "+row[6]
-        note_file=codecs.open(os.path.join(fol, repl_forb(row[0]) + ".md"), "w", "utf-8")   
+       
+        ind = 0
+        n_path = os.path.join(fol, repl_forb(row[0]) + ".md")
+        while (os.path.exists(n_path)):
+            n_path = os.path.join(fol, repl_forb(row[0]) + "\("+str(ind+1)+"\)" + ".md")
+
+        note_file=codecs.open(n_path, "w", "utf-8")   
 
         note_file.write(filetmp)
         note_file.write(meta)
