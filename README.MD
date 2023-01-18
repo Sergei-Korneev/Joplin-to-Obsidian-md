@@ -35,6 +35,8 @@ The script will create a subfolder called Obsidian and write all notebooks and n
 
 Share your  wishes and ideas about this software or buy me a coffee (or hot chocolate)
 
-[![Buy me a coffee](https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/sergeikorneev)
+<a href="https://www.buymeacoffee.com/sergeikorneev"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=sergeikorneev&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00"></a>
+
+
 
 
